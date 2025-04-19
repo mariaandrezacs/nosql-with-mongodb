@@ -1,3 +1,4 @@
+import pytest
 from ..connection.connection_handler import DBConnectionHandler
 from .orders_repository import OrdersRepository
 
@@ -7,11 +8,13 @@ db_connection_handler.connect_to_db()
 conn = db_connection_handler.get_db_connection()
 
 
+@pytest.mark.skip(reason="Interação com o banco")
 def test_insert_document():
     orders_repository = OrdersRepository(conn)
     my_doc = {"ola": "mundo", "valor": 5}
     orders_repository.insert_document(my_doc)
 
+@pytest.mark.skip(reason="Interação com o banco")
 def test_insert_list_of_document():
     orders_repository = OrdersRepository(conn)
     my_doc = [{"elem1": "aqui1"}, {"elem2": "aqui2"}, {"elem3": "aqui3"}]
