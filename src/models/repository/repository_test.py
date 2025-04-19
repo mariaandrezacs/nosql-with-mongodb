@@ -1,7 +1,7 @@
 import pytest
+
 from ..connection.connection_handler import DBConnectionHandler
 from .orders_repository import OrdersRepository
-
 
 db_connection_handler = DBConnectionHandler()
 db_connection_handler.connect_to_db()
@@ -19,3 +19,23 @@ def test_insert_list_of_document():
     orders_repository = OrdersRepository(conn)
     my_doc = [{"elem1": "aqui1"}, {"elem2": "aqui2"}, {"elem3": "aqui3"}]
     orders_repository.insert_list_of_document(my_doc)
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_select_many():
+    orders_repository = OrdersRepository(conn)
+    doc_filter = {"cupom": True}
+    response = orders_repository.select_many(doc_filter)
+    print()
+    print(response)
+    for doc in response:
+        print(doc)
+        print(doc["itens"])
+        print()
+
+
+def test_select_one():
+    orders_repository = OrdersRepository(conn)
+    doc_filter = {"cupom": True}
+    response = orders_repository.select_one(doc_filter)
+    print()
+    print(response)
