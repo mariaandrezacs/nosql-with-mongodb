@@ -20,7 +20,6 @@ class RegistryOrder:
                 status_code=400
             )
 
-
     def __format_new_order(self, body: dict) -> dict:
         new_order = body["data"]
         new_order = {**new_order, "created_at": datetime.now()}
