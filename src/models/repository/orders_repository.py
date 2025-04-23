@@ -1,6 +1,7 @@
 from bson.objectid import ObjectId
 
-from src.models.repository.interfaces.orders_repository import OrdersRepositoryInterface
+from src.models.repository.interfaces.orders_repository import \
+    OrdersRepositoryInterface
 
 
 class OrdersRepository(OrdersRepositoryInterface):
@@ -44,11 +45,11 @@ class OrdersRepository(OrdersRepositoryInterface):
         data = collection.find_one({"_id": ObjectId(object_id)})
         return data
 
-    def edit_registry(self) -> None:
+    def edit_registry(self, order_id: str, update_fields: dict) -> None:
         collection = self.__db_connection.get_collection(self.__collection_name)
         collection.update_one(
-            {"_id": ObjectId("680295e9ecfd12795f32a7d0")}, # filtros
-            {"$set": {"itens.pizza.quantidade": 30}}, # edição
+            {"_id": ObjectId(order_id)}, # filtros
+            {"$set": update_fields}, # edição
         )
 
     def edit_many_registries(self) -> None:
